@@ -4,7 +4,7 @@ require 'csv'
 # It's going to be sort of a command line tool for now... so just normal print statements will do for now. 
 def get_data(csv_path) 
     # Gets table of data to use 
-    return CSV.parse(File.read(csv_path), headers: true)
+    return CSV.parse(File.read(csv_path), encoding: 'IBM437:utf-8', headers: true)
 end
 # Using CSV library 
 
@@ -24,7 +24,10 @@ puts path
 })
 
 # I'm going to need to make a function which grabs the question and answer from a .csv file. 
-@anki.add_card('<span class="kanji">時</span>', 'Big')
-@anki.save
 
-puts get_data('.\data\Kanji Radicals Reference - Kanji Radicals.csv')
+
+data = get_data('.\data\Kanji Radicals Reference - Kanji Radicals.csv')
+puts data[0]["Kanji"].encoding
+
+@anki.add_card(('<span class="kanji">'+ data[0]["Kanji"].force_encoding('utf-8') +'</span>'), data[0]["Meaning"])
+@anki.save
