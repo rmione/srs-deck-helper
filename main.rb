@@ -30,9 +30,12 @@ end
 
 # maybe move this to a function as well
 
+t1 = Time.now
 newdeck = Deck.new("Radicals reference", '.\decks\Radicals reference.apkg') 
 data = get_data('.\data\Kanji Radicals Reference - Kanji Radicals.csv')
 for row in data
     newdeck.new_card(row['Kanji'], row['Meaning']) 
 end
 newdeck.save_deck
+t2 = Time.now 
+puts (t2-t1)
