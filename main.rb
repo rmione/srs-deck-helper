@@ -7,7 +7,7 @@ class Deck
     def initialize(deck_name, dump_path, headers_array)
         @name = deck_name
         @headers = headers_array.drop(1) # This omits the first header which I assume is "Kanji"
-        @dump_path = dump_path
+        @dump_path = dump_path + ".apkg"
         @deck = Anki2.new({
             css: '.kanji { font-size: 88px; }',
             name: @name,
@@ -43,24 +43,31 @@ end
 # It's going to be sort of a command line tool for now... so just normal print statements will do for now. 
 def get_data(csv_path) 
     # Gets table of data to use 
-    return CSV.parse(File.read(csv_path), encoding: 'IBM437:utf-8', headers: true)
+    return CSV.parse(File.read(csv_path + ".csv"), encoding: 'IBM437:utf-8', headers: true)
 end
 
 # maybe move this to a function as well
+
+"""
+I thought about making this dynamic, but I think specifying the deck name in the data folder, as well as the name 
+you'd like it to be dumped with is the best option here. Don't want to be creating decks en masse or anything...
+TODO: this may change though or be added as another functionality 
+"""
 
 optparse = OptionParser.new do |parser|
     parser.on("-c", "--create DECK", "The name of the deck.") do |create|
         puts create
         t1 = Time.now
-        data = get_data('.\data\Kanji Radicals Reference - Kanji Radicals.csv')
+        data = get_data(".\\data\\#{create}" )
         headers= data.headers # Gets the headers
-        newdeck = Deck.new("Radicals reference", '.\decks\abss.apkg', headers) 
+        newdeck = Deck.new("#{Create}", ".\\decks\\#{create}", headers) 
         for row in data
             newdeck.new_card(row) 
         end
         newdeck.save_deck
         t2 = Time.now 
         puts (t2-t1)
+
     end
 end
       
