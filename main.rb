@@ -19,20 +19,37 @@ class Deck
             @base = @base + header + " %s" +"\n" # header and newline 
         end
 
+        puts @base
+
     end
 
 
-    def new_card(data)
-        kanji = data['Kanji'] # For now let's keep it like this, I am only studying Japanese for now and for sure it will be Kanji!       
-        meaning = data['Meaning']  
-        radicals = data['Radicals']
-        temp = @base
-        for col in data
-            # Repeatedly fills out all the %s with all of the different columns! 
-            temp = temp % col 
-        end 
+    def new_card(row)
+        kanji = row['Kanji'] # For now let's keep it like this, I am only studying Japanese for now and for sure it will be Kanji!       
+        # meaning = data['Meaning']  
+        # radicals = data['Radicals']
+        # temp = @base
+    
             
-        @deck.add_card(('<span class="kanji">'+ kanji.force_encoding('utf-8') +'</span>'), 'Meaning: '+meaning + '\nRadicals: '+ radicals.force_encoding('utf-8'))
+        # for row in data
+        #     for header in @headers
+        #         puts row.class
+        #         x = row.fetch("Meaning").to_s
+        #     end
+
+        # end
+        temp = ""
+        counter = 0
+        row.drop(1).each do |field|
+            count = counter.modulo(2)
+            # puts field[1]
+            # puts "hello"
+            temp = temp + "#{@headers[count]}: #{field[1]} \n"
+            counter+=1
+        end
+        # puts temp
+      
+        @deck.add_card(('<span class="kanji">'+ kanji.force_encoding('utf-8') +'</span>'), temp.to_s.force_encoding('utf-8'))
     end
 
     def save_deck
@@ -43,7 +60,7 @@ end
 # It's going to be sort of a command line tool for now... so just normal print statements will do for now. 
 def get_data(csv_path) 
     # Gets table of data to use 
-    return CSV.parse(File.read(csv_path + ".csv"), encoding: 'IBM437:utf-8', headers: true)
+    return CSV.parse(File.read(csv_path + ".csv"), encoding: 'IBM437:utf-8', headers: true).by_row
 end
 
 # maybe move this to a function as well
@@ -59,9 +76,11 @@ optparse = OptionParser.new do |parser|
         puts create
         t1 = Time.now
         data = get_data(".\\data\\#{create}" )
-        headers= data.headers # Gets the headers
+        # puts data.class
+        headers = data.headers # Gets the headers
         newdeck = Deck.new("#{create}", headers) 
-        for row in data
+        data.each do |row|
+            # puts row
             newdeck.new_card(row) 
         end
         newdeck.save_deck
