@@ -4,10 +4,10 @@ require 'optparse'
 
 
 class Deck
-    def initialize(deck_name, dump_path, headers_array)
+    def initialize(deck_name, headers_array)
         @name = deck_name
         @headers = headers_array.drop(1) # This omits the first header which I assume is "Kanji"
-        @dump_path = dump_path + ".apkg"
+        @dump_path = ".\\decks\\"+ deck_name + ".apkg"
         @deck = Anki2.new({
             css: '.kanji { font-size: 88px; }',
             name: @name,
@@ -60,7 +60,7 @@ optparse = OptionParser.new do |parser|
         t1 = Time.now
         data = get_data(".\\data\\#{create}" )
         headers= data.headers # Gets the headers
-        newdeck = Deck.new("#{Create}", ".\\decks\\#{create}", headers) 
+        newdeck = Deck.new("#{create}", headers) 
         for row in data
             newdeck.new_card(row) 
         end
