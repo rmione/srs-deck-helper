@@ -26,28 +26,26 @@ class Deck
 
     def new_card(row)
         kanji = row['Kanji'] # For now let's keep it like this, I am only studying Japanese for now and for sure it will be Kanji!       
-        # meaning = data['Meaning']  
-        # radicals = data['Radicals']
-        # temp = @base
     
-            
-        # for row in data
-        #     for header in @headers
-        #         puts row.class
-        #         x = row.fetch("Meaning").to_s
-        #     end
-
-        # end
         temp = ""
-        counter = 0
+        counter = 0 # Init counter to zero
+        len = @headers.length() # Get the length of the headers array.
         row.drop(1).each do |field|
-            count = counter.modulo(2)
-            # puts field[1]
-            # puts "hello"
+            """
+            This modulus division is a hack, but it works for the format I use. 
+            Counts up from zero, then indexes the headers array by modulus dividing the count by how many headers we have.
+            This way we iterate through that array in sync with parsing the row. 
+
+            This is definitely a bit of a hack but I will see what I can do later on.
+
+            """
+            count = counter.modulo(len) # Modulus division
+            
             temp = temp + "#{@headers[count]}: #{field[1]} \n"
-            counter+=1
+            
+            counter += 1 # Increment the counter
         end
-        # puts temp
+        
       
         @deck.add_card(('<span class="kanji">'+ kanji.force_encoding('utf-8') +'</span>'), temp.to_s.force_encoding('utf-8'))
     end
