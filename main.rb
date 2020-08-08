@@ -9,7 +9,14 @@ class Deck
         @headers = headers_array.drop(1) # This omits the first header which I assume is "Kanji"
         @dump_path = ".\\decks\\"+ deck_name + ".apkg"
         @deck = Anki2.new({
-            css: '.kanji { font-size: 88px; }',
+            css: '      .card {
+                font-family: mincho;
+                font-size: 88px;
+                text-align: center;
+                color: black;
+               }
+             .kanji {font-family: "Kozuka Mincho Pr6N"}
+             ',
             name: @name,
             output_path: @dump_path
         })
