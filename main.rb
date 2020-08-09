@@ -33,7 +33,7 @@ class Deck
 
     def new_card(row)
         kanji = row['Kanji'] # For now let's keep it like this, I am only studying Japanese for now and for sure it will be Kanji!       
-    
+        
         temp = ""
         counter = 0 # Init counter to zero
         len = @headers.length() # Get the length of the headers array.
@@ -46,6 +46,7 @@ class Deck
             This is definitely a bit of a hack but I will see what I can do later on.
 
             """
+            puts field
             count = counter.modulo(len) # Modulus division
             
             temp = temp + "#{@headers[count]}: #{field[1]} \n"
@@ -53,8 +54,8 @@ class Deck
             counter += 1 # Increment the counter
         end
         
-      
-        @deck.add_card(('<span class="kanji">'+ kanji.force_encoding('utf-8') +'</span>'), temp.to_s.force_encoding('utf-8'))
+        
+        @deck.add_card(('<span class="kanji">'+ kanji.force_encoding('utf-8') +'</span>'), temp.to_s)
     end
 
     def save_deck
