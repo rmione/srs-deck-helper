@@ -1,5 +1,5 @@
 # anki helper
-
+__Disclaimer: This project and its author(s) are not affiliated/associated Anki in any way whatsoever!__
 This is a simple command line utility hat helps me make Anki decks while studying different languages, specifically Japanese.
 
 When transcribing the meaning of a word or a kanji, etc from a textbook I found it clumsy to use the Anki app due to its interface. 
