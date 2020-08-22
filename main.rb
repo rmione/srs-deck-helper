@@ -55,7 +55,7 @@ class Deck
         end
         
         
-        @deck.add_card(('<span class="kanji">'+ kanji.force_encoding('utf-8') +'</span>'), temp.to_s)
+        @deck.add_card(('<span class="kanji">'+ kanji.force_encoding('utf-8') +'</span>'), temp.to_s.force_encoding('utf-8'))
     end
 
     def save_deck
@@ -66,7 +66,7 @@ end
 # It's going to be sort of a command line tool for now... so just normal print statements will do for now. 
 def get_data(csv_path) 
     # Gets table of data to use 
-    return CSV.parse(File.read(csv_path + ".csv"), encoding: 'IBM437:utf-8', headers: true).by_row
+    return CSV.parse(File.read(csv_path + ".csv"), encoding: 'utf-8', headers: true).by_row
 end
 
 # maybe move this to a function as well
