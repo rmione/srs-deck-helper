@@ -11,8 +11,10 @@ This makes some very pretty and easy to read, as well as information-dense flash
 ## Usage 
 In the root directory, when you have a valid .csv file in the /data/ directory, in your terminal of choice, type:
 
-
 *Note: the Deck name should be the same as the name of the .csv file in the /data/ directory. This may change but for simplicity's sake this is how it works right now.*
 ```bash 
 ruby main.rb -c "Deck name" 
 ```
+The .csv file can have many different layouts as the program does work around this, but here is one example of a file one might use: 
+
+![](example.png)
