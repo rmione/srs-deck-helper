@@ -1,4 +1,5 @@
-require 'Anki2'
+require 'rubygems'
+require 'anki2'
 require 'csv'
 require 'optparse'
 
@@ -7,7 +8,7 @@ class Deck
     def initialize(deck_name, headers_array)
         @name = deck_name
         @headers = headers_array.drop(1) # This omits the first header which I assume is "Kanji"
-        @dump_path = ".\\decks\\"+ deck_name + ".apkg"
+        @dump_path = "./decks/"+ deck_name + ".apkg"
         @deck = Anki2.new({
             css: '      .card {
                 font-family: mincho;
@@ -81,7 +82,7 @@ optparse = OptionParser.new do |parser|
     parser.on("-c", "--create DECK", "The name of the deck.") do |create|
         puts create
         t1 = Time.now
-        data = get_data(".\\data\\#{create}" )
+        data = get_data("./data/#{create}" )
         # puts data.class
         headers = data.headers # Gets the headers
         newdeck = Deck.new("#{create}", headers) 
