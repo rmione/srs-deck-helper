@@ -68,7 +68,7 @@ end
 # It's going to be sort of a command line tool for now... so just normal print statements will do for now. 
 def get_data(csv_path) 
     # Gets table of data to use 
-    return CSV.parse(File.read(csv_path + ".csv"), encoding: 'utf-8', headers: true).by_row
+    return CSV.parse(File.read(csv_path), encoding: 'utf-8', headers: true).by_row
 end
 
 # maybe move this to a function as well
@@ -81,12 +81,13 @@ TODO: this may change though or be added as another functionality
 
 optparse = OptionParser.new do |parser|
     parser.on("-c", "--create DECK", "The name of the deck.") do |create|
-        puts create
+        name = create.split(".")[0]
+
         t1 = Time.now
-        data = get_data("./data/#{create}" )
+        data = get_data("./#{create}" )
         # puts data.class
         headers = data.headers # Gets the headers
-        newdeck = Deck.new("#{create}", headers) 
+        newdeck = Deck.new("#{name}", headers) 
         data.each do |row|
             newdeck.new_card(row) 
         end

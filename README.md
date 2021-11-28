@@ -9,11 +9,12 @@ Using this I just have to make an excel/google sheets file, save it as a .csv an
 This makes some very pretty and easy to read, as well as information-dense flash cards that I have found very helpful to study with.
 
 ## Usage 
-In the root directory, when you have a valid .csv file in the /data/ directory, in your terminal of choice, type:
+In the root directory, when you have a valid .csv. In your terminal of choice, type:
 
-*Note: the Deck name should be the same as the name of the .csv file in the /data/ directory. This may change but for simplicity's sake this is how it works right now.*
+*Note: the Deck name must be the same as your target This may change but for simplicity's sake this is how it works right now.*
 ```bash 
-ruby main.rb -c "Deck name" 
+# Assuming there is a .csv in the root directory called "target.csv"
+ruby main.rb -c "target.csv" 
 ```
 The .csv file can have many different layouts as the program does work around this, but here is one example of a file one might use: 
 
