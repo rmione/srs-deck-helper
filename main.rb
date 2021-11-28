@@ -27,8 +27,6 @@ class Deck
             @base = @base + header + " %s" +"\n" # header and newline 
         end
 
-        puts @base
-
     end
 
 
