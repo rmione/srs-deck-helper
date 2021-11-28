@@ -32,8 +32,10 @@ class Deck
     end
 
 
+
     def new_card(row)
-        kanji = row['Kanji'] # For now let's keep it like this, I am only studying Japanese for now and for sure it will be Kanji!       
+        keyword = row.headers()[0]
+        kanji = row["Kanji"] # For now let's keep it like this, I am only studying Japanese for now and for sure it will be Kanji!       
         
         temp = ""
         counter = 0 # Init counter to zero
@@ -47,7 +49,6 @@ class Deck
             This is definitely a bit of a hack but I will see what I can do later on.
 
             """
-            puts field
             count = counter.modulo(len) # Modulus division
             
             temp = temp + "#{@headers[count]}: #{field[1]} \n"
@@ -56,7 +57,7 @@ class Deck
         end
         
         
-        @deck.add_card(('<span class="kanji">'+ kanji.force_encoding('utf-8') +'</span>'), temp.to_s.force_encoding('utf-8'))
+        @deck.add_card(('<span class="kanji">'+ row[keyword].force_encoding('utf-8') +'</span>'), temp.to_s.force_encoding('utf-8'))
     end
 
     def save_deck
@@ -87,7 +88,6 @@ optparse = OptionParser.new do |parser|
         headers = data.headers # Gets the headers
         newdeck = Deck.new("#{create}", headers) 
         data.each do |row|
-            # puts row
             newdeck.new_card(row) 
         end
         newdeck.save_deck
