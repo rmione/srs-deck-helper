@@ -1,5 +1,4 @@
 # Deck Helper
-__Disclaimer: This project and its author(s) are not affiliated/associated Anki in any way whatsoever!__
 
 This is a simple command line script hat helps me make Anki decks while studying different languages, specifically Japanese.
 
